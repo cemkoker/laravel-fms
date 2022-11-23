@@ -5,6 +5,7 @@ namespace App\Imports;
 use App\Models\Meeting;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class MeetingsImport implements ToModel, WithHeadingRow
 {
@@ -20,7 +21,18 @@ class MeetingsImport implements ToModel, WithHeadingRow
         if ($row['interpsrs'] == "") $row['interpsrs'] = 'none';
         if ($row['resources'] == "") $row['resources'] = 'none';
         if ($row['client'] == "") $row['client'] = 'none';
-        // dd($row);
+
+        $from = intval($row['from']);
+        $to = intval($row['to']);
+        $row['from'] = Date::excelToDateTimeObject($from)->format('Y-m-d');
+        $row['to'] = Date::excelToDateTimeObject($to)->format('Y-m-d');
+
+        $start = ($row['start']);
+        $end = ($row['end']);
+        $row['start'] = Date::excelToDateTimeObject($start)->format('Y-m-d H:i:s');
+        $row['end'] = Date::excelToDateTimeObject($end)->format('Y-m-d H:i:s');
+
+       
         return new Meeting([
             'reference' => $row['meeting_id'],
             'client' => $row['client'],

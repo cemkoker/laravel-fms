@@ -14,14 +14,14 @@ return new class extends Migration
     public function up()
     {
         Schema::create('meetings', function (Blueprint $table) {
-            $table->id(); 
+            $table->id();
             $table->string('reference');
             $table->string('client');
             $table->string('subclient');
             $table->string('title');
             $table->string('room');
-            $table->string('start_date');
-            $table->string('end_date');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
             $table->string('privacy');
             $table->string('start_time');
             $table->string('end_time');
