@@ -32,7 +32,7 @@ class MeetingsImport implements ToModel, WithHeadingRow
         $row['start'] = Date::excelToDateTimeObject($start)->format('Y-m-d H:i:s');
         $row['end'] = Date::excelToDateTimeObject($end)->format('Y-m-d H:i:s');
 
-       
+
         return new Meeting([
             'reference' => $row['meeting_id'],
             'client' => $row['client'],

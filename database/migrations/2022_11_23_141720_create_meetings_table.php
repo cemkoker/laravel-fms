@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('start_time');
             $table->string('end_time');
             $table->string('interpretation');
-            $table->string('resources');
+            $table->text('resources');
             $table->string('status');
             $table->timestamps();
         });

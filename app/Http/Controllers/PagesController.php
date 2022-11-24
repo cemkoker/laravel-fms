@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 class PagesController extends Controller
 {
     public function elementsAvatar()
@@ -513,6 +515,7 @@ class PagesController extends Controller
     {
         return view('pages/apps-nft-1');
     }
+
     public function appsNft2()
     {
         return view('pages/apps-nft-2');
@@ -535,7 +538,8 @@ class PagesController extends Controller
 
     public function dashboardsCrmAnalytics()
     {
-        return view('pages/dashboards-crm-analytics');
+        $meetings = DB::table('meetings')->where('start_date' ->orderBy('start_date', 'desc')->get();
+        return view('pages/dashboards-crm-analytics', array('meetings' => $meetings));
     }
 
     public function dashboardsOrders()
@@ -597,6 +601,7 @@ class PagesController extends Controller
     {
         return view('pages/dashboards-education');
     }
+
     public function dashboardsDoctor()
     {
         return view('pages/dashboards-doctor');
