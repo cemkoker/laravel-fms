@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class PagesController extends Controller
@@ -538,8 +539,12 @@ class PagesController extends Controller
 
     public function dashboardsCrmAnalytics()
     {
-        $meetings = DB::table('meetings')->where('start_date' ->orderBy('start_date', 'desc')->get();
-        return view('pages/dashboards-crm-analytics', array('meetings' => $meetings));
+//      DB::enableQueryLog();
+        $todays = DB::table('meetings')->where('start_time', '<', Carbon::now())->where('end_time', '>', Carbon::now())->orderBy('start_time', 'asc')->get();
+//      $query = end($todays);
+//      dd(DB::getQueryLog()); // Show results of log
+        $tomorrows = DB::table('meetings')->where('start_date', ">=", Carbon::tomorrow())->orderBy('start_time', 'asc')->get();
+        return view('pages/dashboards-crm-analytics', array('todays' => $todays, 'tomorrows' => $tomorrows));
     }
 
     public function dashboardsOrders()
